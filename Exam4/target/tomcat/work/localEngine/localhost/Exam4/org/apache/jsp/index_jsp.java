@@ -4,14 +4,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 import java.sql.*;
+import com.hand.jdbc.*;
 
 public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
-public static final String DRIVER = "com.mysql.jdbc.Driver";
-	public static final String USER = "root";
-	public static final String PASS = "111111";
-	public static final String URL = "jdbc:mysql://localhost:3306/sakila";
+
 	public static final int PAGESIZE = 20;
 	int pageCount;
 	int curPage = 1;
@@ -58,6 +56,7 @@ public static final String DRIVER = "com.mysql.jdbc.Driver";
       out = pageContext.getOut();
       _jspx_out = out;
 
+      out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
       out.write("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\r\n");
@@ -136,8 +135,7 @@ public static final String DRIVER = "com.mysql.jdbc.Driver";
 						String user = null;
 						String pass = null;
 						try {
-							Class.forName(DRIVER);
-							Connection con = DriverManager.getConnection(URL, USER, PASS);
+							Connection con = ConnectionFactory.getInstance().getConnection();
 							String sql = "SELECT first_name,last_name,email,customer_id,last_update FROM customer";
 							PreparedStatement stat = con
 									.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY,
